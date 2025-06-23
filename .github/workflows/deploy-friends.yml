@@ -1,0 +1,25 @@
+name: Deploy friends-service-php to EC2
+
+on:
+  push:
+    branches:
+      - test  # o la rama que uses
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: 54.225.7.166
+        username: ec2-user
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          docker pull kamartinez/friends-service-php:latest
+          docker stop friends-service-php || true && docker rm friends-service-php || true
+          docker run -d --name friends-service-php -p 8083:80 kamartinez/friends-service-php:latest
