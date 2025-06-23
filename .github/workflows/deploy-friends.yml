@@ -3,7 +3,7 @@ name: Deploy friends-service-python to EC2
 on:
   push:
     branches:
-      - test  # o tu rama específica
+      - test  # Cambia si usas otra rama
 
 jobs:
   deploy:
@@ -14,15 +14,19 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Deploy via SSH
-  uses: appleboy/ssh-action@v1.0.3
-  with:
-    host: 54.225.7.166
-    username: ec2-user
-    key: ${{ secrets.EC2_SSH_KEY }}
-    script: |
-      docker pull kamartinez/friends-service-python:latest
-      # Detener y eliminar cualquier contenedor en 8083
-      docker ps -q --filter "publish=8083" | grep . && docker stop $(docker ps -q --filter "publish=8083") && docker rm $(docker ps -aq --filter "publish=8083") || echo "Puerto libre"
-      # Correr nuevo contenedor
-      docker run -d --name friends-service-python -p 8083:8000 kamartinez/friends-service-python:latest
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: 54.225.7.166
+        username: ec2-user
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          echo "📦 Pulling latest Docker image..."
+          docker pull kamartinez/friends-service-python:latest
+          
+          echo "🧹 Cleaning up port 8083 if in use..."
+          docker ps -q --filter "publish=8083" | grep . && docker stop $(docker ps -q --filter "publish=8083") && docker rm $(docker ps -aq --filter "publish=8083") || echo "✅ Port 8083 is free"
 
+          echo "🚀 Starting new container..."
+          docker run -d --name friends-service-python --restart unless-stopped -p 8083:8000 kamartinez/friends-service-python:latest
+
+          echo "✅ Deployment completed!"
