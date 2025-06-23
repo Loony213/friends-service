@@ -1,9 +1,9 @@
-name: Deploy friends-service-php to EC2
+name: Deploy friends-service-python to EC2
 
 on:
   push:
     branches:
-      - test  # o la rama que uses
+      - test  # o tu rama específica
 
 jobs:
   deploy:
@@ -20,6 +20,6 @@ jobs:
         username: ec2-user
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
-          docker pull kamartinez/friends-service-php:latest
-          docker stop friends-service-php || true && docker rm friends-service-php || true
-          docker run -d --name friends-service-php -p 8083:80 kamartinez/friends-service-php:latest
+          docker pull kamartinez/friends-service-python:latest
+          docker stop friends-service-python || true && docker rm friends-service-python || true
+          docker run -d --name friends-service-python -p 8083:8000 kamartinez/friends-service-python:latest
