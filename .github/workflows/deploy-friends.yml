@@ -22,11 +22,15 @@ jobs:
         script: |
           echo "📦 Pulling latest Docker image..."
           docker pull kamartinez/friends-service-python:latest
-          
-          echo "🧹 Cleaning up port 8083 if in use..."
-          docker ps -q --filter "publish=8083" | grep . && docker stop $(docker ps -q --filter "publish=8083") && docker rm $(docker ps -aq --filter "publish=8083") || echo "✅ Port 8083 is free"
 
-          echo "🚀 Starting new container..."
-          docker run -d --name friends-service-python --restart unless-stopped -p 8083:8000 kamartinez/friends-service-python:latest
+          echo "🚀 Starting new container (or replacing existing one)..."
+          docker stop friends-service-python || true
+          docker rm friends-service-python || true
+
+          docker run -d \
+            --name friends-service-python \
+            --restart unless-stopped \
+            -p 8083:8000 \
+            kamartinez/friends-service-python:latest
 
           echo "✅ Deployment completed!"
