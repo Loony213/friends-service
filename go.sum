@@ -1,3 +1,0 @@
-go mod init friends-service
-go get github.com/denisenkom/go-mssqldb
-go get github.com/gorilla/mux
