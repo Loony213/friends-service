@@ -3,7 +3,7 @@ name: Deploy friends-service-python to EC2
 on:
   push:
     branches:
-      - test  # Cambia si usas otra rama
+      - test  
 
 jobs:
   deploy:
@@ -16,7 +16,7 @@ jobs:
     - name: Deploy via SSH
       uses: appleboy/ssh-action@v1.0.3
       with:
-        host: 54.236.126.209
+        host: 44.193.181.80
         username: ec2-user
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
