@@ -1,91 +1,119 @@
 
-# 👥 Friends Service
+# Friends Service - Microservice
 
-This microservice is part of the **Distribuida** system and manages user friendships. It provides basic RESTful endpoints to handle friend-related operations.
+🚀 **Welcome to the Friends Service Microservice repository!** 🚀
 
----
+This repository is designed for managing friend requests and user interactions in a social media application. It provides essential APIs for sending, accepting, and rejecting friend requests.
 
-## 📌 Features
-
-- 🧑‍🤝‍🧑 Add and remove friends
-- 👁️‍🗨️ View user friends list
-- ❌ Block or unblock users
-- 📡 RESTful API using FastAPI
-
----
-
-## 🧩 Architecture
-
-- 🧱 Style: Lightweight, standalone microservice
-- 🌐 API: REST (FastAPI)
-- 🐍 Language: Python 3.11+
-- 🐳 Containerized with Docker
-
----
-
-## 📁 Project Structure
+## 📂 Project Structure
 
 ```
-friends-service/
-├── .github/               # GitHub Actions or workflows
-├── app.py                 # Main FastAPI app with routing logic
-├── Dockerfile             # Docker build file
-├── requirements.txt       # Python dependencies
-└── README.md              # This documentation
+get_friend/
+├── app/
+│   ├── api/
+│   │   └── friends_api.py
+│   ├── models/
+│   │   └── friend_request.py
+│   ├── services/
+│   │   └── friends_service.py
+│   ├── app.py
+│   └── Dockerfile
+├── requirements.txt
+└── README.md
 ```
 
----
+## 🛠️ Technologies & Tools
 
-## 🚀 How to Deploy
+- **Python 3.x** 🐍
+- **Flask**: Lightweight web framework for building RESTful APIs 🌐
+- **Docker**: Containerization 🐳
 
-### 🐳 Using Docker
+## 🔗 Architecture
 
-1. **Clone the repository**:
+- **Style**: Microservice-based Architecture 🌍
+- **API Style**: RESTful 🧑‍💻
+- **Design Pattern**: Service Layer, Singleton pattern used for service instances 🔧
+
+### Core Principles
+- **Single Responsibility**: Each microservice performs a single task (friendship management).
+- **Loose Coupling**: Each service can interact with others through APIs, but is independent.
+- **Scalability**: The microservice is designed to scale horizontally for increased load.
+
+## 🧑‍💻 Running the Application
+
+1. Clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/Loony213/friends-service.git
-cd friends-service
+git clone https://github.com/Loony213/friends_service.git
+cd friends_service
 ```
 
-2. **Build the Docker image**:
+2. Install dependencies:
 
 ```bash
-docker build -t kamartinez/friends-service .
+pip install -r requirements.txt
 ```
 
-3. **Run the container**:
+3. To run the application locally:
 
 ```bash
-docker run -d -p 8000:8000 kamartinez/friends-service
+python app.py
 ```
 
-The API will be available at:  
-📍 `http://localhost:8000`
+4. To run using Docker:
+
+```bash
+docker build -t friends_service .
+docker run -p 5000:5000 friends_service
+```
+
+This will make your service available at `http://localhost:5000`.
+
+
+## 🔧 Docker Configuration
+
+The project includes a **Dockerfile** to build and run the service inside a container. 
+
+### Build the Docker image:
+
+```bash
+docker build -t friends_service .
+```
+
+### Run the Docker container:
+
+```bash
+docker run -d -p 5000:5000 friends_service
+```
+
+The service will be available on port `5000` inside the container.
+
+## 📑 Requirements
+
+- **Flask**: Web framework to handle API requests
+- **Flask-RESTful**: To manage REST APIs
+- **SQLAlchemy**: ORM for database interactions (Optional)
+- **Psycopg2**: PostgreSQL database adapter (Optional)
+
+## 🔒 Security Considerations
+
+- **Authentication**: Use of JWT tokens (to be implemented)
+- **Authorization**: Only authenticated users can send or accept friend requests
+
+## 🌍 DockerHub & Deployment
+
+You can push this Docker image to DockerHub with your `kamartinez` account:
+
+```bash
+docker tag friends_service kamartinez/friends_service:latest
+docker push kamartinez/friends_service:latest
+```
+
+## 🔄 Contributing
+
+Feel free to fork this repository, submit issues, and contribute to improving the service!
 
 ---
 
-## 🔗 Endpoints (examples)
+**Author**: Kamartinez 🧑‍💻  
 
-- `GET /friends/{username}` → Get friend list
-- `POST /friends/add` → Add a friend
-- `DELETE /friends/remove` → Remove a friend
-- `POST /friends/block` → Block a user
-
-> Actual endpoints may vary depending on implementation
-
----
-
-## 🛠️ Requirements
-
-- Python 3.11+
-- FastAPI
-- Docker
-- Possibly a database (e.g., SQL Server, PostgreSQL)
-
----
-
-## 👤 Author
-
-Developed by **Loony213**  
-Image on Docker Hub: `kamartinez/friends-service`  
-Part of the **Distribuida** system
