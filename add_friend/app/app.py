@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.add_friend_api import router as add_friend_router
-from app.api.friends_api import router as friends_router
 
 app = FastAPI()
 
@@ -16,4 +15,4 @@ app.add_middleware(
 
 # Configuración de rutas
 app.include_router(add_friend_router)
-app.include_router(friends_router)
+
