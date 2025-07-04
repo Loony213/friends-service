@@ -24,8 +24,6 @@ jobs:
         docker build -t kamartinez/add_friend ./add_friend
         docker build -t kamartinez/get_friend ./get_friend
         docker build -t kamartinez/neo4j ./neo4j-sqlserver-integration
-        docker build -t kamartinez/get-description ./get_description
-        docker build -t kamartinez/get-name ./get_name
 
     - name: Push images to Docker Hub
       run: |
@@ -33,8 +31,6 @@ jobs:
         docker push kamartinez/add_friend
         docker push kamartinez/get_friend
         docker push kamartinez/neo4j
-        docker push kamartinez/get-description
-        docker push kamartinez/get-name
 
     - name: Deploy services to EC2
       uses: appleboy/ssh-action@v1.0.0
@@ -50,21 +46,13 @@ jobs:
           docker rm get_friend || true
           docker stop neo4j || true
           docker rm neo4j || true
-          docker stop get-description || true
-          docker rm get-description || true
-          docker stop get-name || true
-          docker rm get-name || true
 
           # Download
           docker pull kamartinez/add_friend
           docker pull kamartinez/get_friend
           docker pull kamartinez/neo4j
-          docker pull kamartinez/get-description
-          docker pull kamartinez/get-name
 
           # Ejecute
           docker run -d --name add_friend -p 8000:8000 kamartinez/add_friend
           docker run -d --name get_friend -p 8001:8001 kamartinez/get_friend
           docker run -d --name neo4j -p 8002:8002 kamartinez/neo4j
-          docker run -d --name get-name -p 5002:5002 kamartinez/get-name
-          docker run -d --name get-description -p 8003:8003 kamartinez/get-description
