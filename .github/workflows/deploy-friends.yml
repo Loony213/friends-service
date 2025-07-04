@@ -53,6 +53,6 @@ jobs:
           docker pull kamartinez/neo4j
 
           # Ejecute
-          docker run -d --name add_friend -p 8000:8000 kamartinez/add_friend
-          docker run -d --name get_friend -p 8001:8001 kamartinez/get_friend
-          docker run -d --name neo4j -p 8002:8002 kamartinez/neo4j
+          docker run -d --name add_friend -p 8000:8000 --restart unless-stopped kamartinez/add_friend
+          docker run -d --name get_friend -p 8001:8001 --restart unless-stopped kamartinez/get_friend
+          docker run -d --name neo4j -p 8002:8002 --restart unless-stopped kamartinez/neo4j
