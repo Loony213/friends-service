@@ -1,0 +1,17 @@
+{
+  "name": "neo4j-sqlserver-integration",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "events": "^3.3.0",
+    "mssql": "^11.0.1",
+    "neo4j-driver": "^5.28.1"
+  }
+}
