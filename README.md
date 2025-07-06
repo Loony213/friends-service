@@ -1,7 +1,7 @@
 
 # Friends Service Microservices 🤝
 
-This repository is part of the **Friends Service** domain, which provides the configuration and logic for managing friend requests and relationships. It includes microservices that handle adding friends, retrieving friend lists, and creating relationships through graph-based models using Neo4j.
+This repository is part of the **Friends Service** domain, which provides the configuration and logic for managing friend requests and relationships. It includes microservices that handle adding friends, retrieving friend lists, and creating relationships through graph-based models using Neo4j..
 
 ## Repository Link 📁
 - [GitHub Repository](https://github.com/Loony213/friends-service)
